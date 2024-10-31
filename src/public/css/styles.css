@@ -1,0 +1,72 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+}
+
+main {
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+li:hover {
+  background-color: #f9f9f9;
+}
+
+.track-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.track-artist {
+  font-size: 14px;
+  color: #666;
+}
+
+.playlist-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.playlist-description {
+  font-size: 14px;
+  color: #666;
+}
+
+.recommendation-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.recommendation-artist {
+  font-size: 14px;
+  color: #666;
+}
