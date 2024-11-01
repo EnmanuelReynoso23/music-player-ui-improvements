@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Button, Share, StyleSheet } from 'react-native';
+import * as FileSystem from 'expo-file-system';
 
 const SocialShare = ({ track, playlist }) => {
   const shareTrack = async () => {
@@ -22,11 +23,33 @@ const SocialShare = ({ track, playlist }) => {
     }
   };
 
+  const exportPlaylistAsJSON = async () => {
+    const json = JSON.stringify(playlist);
+    const fileUri = `${FileSystem.documentDirectory}${playlist.name}.json`;
+    await FileSystem.writeAsStringAsync(fileUri, json);
+    await Share.share({
+      url: fileUri,
+      message: `Check out this playlist: ${playlist.name}`,
+    });
+  };
+
+  const exportPlaylistAsCSV = async () => {
+    const csv = playlist.tracks.map(track => `${track.title},${track.artist}`).join('\n');
+    const fileUri = `${FileSystem.documentDirectory}${playlist.name}.csv`;
+    await FileSystem.writeAsStringAsync(fileUri, csv);
+    await Share.share({
+      url: fileUri,
+      message: `Check out this playlist: ${playlist.name}`,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Share with friends</Text>
       <Button title="Share Track" onPress={shareTrack} />
       <Button title="Share Playlist" onPress={sharePlaylist} />
+      <Button title="Export Playlist as JSON" onPress={exportPlaylistAsJSON} />
+      <Button title="Export Playlist as CSV" onPress={exportPlaylistAsCSV} />
     </View>
   );
 };

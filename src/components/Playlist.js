@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, Button, FlatList, Image, StyleSheet } from 'react-native';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import YouTubeMusicAPI from '../api/youtubeMusicApi';
+import AppleMusicAPI from '../api/AppleMusicAPI';
+import DeezerAPI from '../api/DeezerAPI';
+import SoundCloudAPI from '../api/SoundCloudAPI';
 
 const Playlist = ({ playlist, onAddTrack, onRemoveTrack, onReorderTracks }) => {
   const [tracks, setTracks] = useState(playlist.tracks);
@@ -21,6 +24,10 @@ const Playlist = ({ playlist, onAddTrack, onRemoveTrack, onReorderTracks }) => {
     onReorderTracks(data);
   };
 
+  const saveReorderedPlaylist = () => {
+    // Implement save functionality
+  };
+
   const fetchAlbumArtAndArtistImage = async (track) => {
     const fetchedAlbumArt = await YouTubeMusicAPI.searchAlbums(track.album);
     const fetchedArtistImage = await YouTubeMusicAPI.searchTracks(track.artist);
@@ -28,6 +35,36 @@ const Playlist = ({ playlist, onAddTrack, onRemoveTrack, onReorderTracks }) => {
       albumArt: fetchedAlbumArt[0].snippet.thumbnails.default.url,
       artistImage: fetchedArtistImage[0].snippet.thumbnails.default.url,
     };
+  };
+
+  const fetchAppleMusicTracks = async (query) => {
+    try {
+      const tracks = await AppleMusicAPI.searchTracks(query);
+      return tracks;
+    } catch (error) {
+      console.error('Error fetching Apple Music tracks:', error);
+      return [];
+    }
+  };
+
+  const fetchDeezerTracks = async (query) => {
+    try {
+      const tracks = await DeezerAPI.searchTracks(query);
+      return tracks;
+    } catch (error) {
+      console.error('Error fetching Deezer tracks:', error);
+      return [];
+    }
+  };
+
+  const fetchSoundCloudTracks = async (query) => {
+    try {
+      const tracks = await SoundCloudAPI.searchTracks(query);
+      return tracks;
+    } catch (error) {
+      console.error('Error fetching SoundCloud tracks:', error);
+      return [];
+    }
   };
 
   const renderItem = ({ item, drag }) => (
@@ -51,6 +88,7 @@ const Playlist = ({ playlist, onAddTrack, onRemoveTrack, onReorderTracks }) => {
         onDragEnd={reorderTracks}
       />
       <Button title="Add Track" onPress={() => addTrack({ id: 'new', title: 'New Track', artist: 'Unknown', albumArt: 'https://via.placeholder.com/150' })} />
+      <Button title="Save Playlist" onPress={saveReorderedPlaylist} />
     </View>
   );
 };
