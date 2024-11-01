@@ -1,0 +1,33 @@
+{
+  "name": "music-player-ui-improvements",
+  "version": "1.0.0",
+  "description": "A music player application with improved UI features",
+  "main": "App.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "expo": "^41.0.0",
+    "expo-av": "~9.1.2",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-native": "0.64.0",
+    "react-native-draggable-flatlist": "^2.5.2",
+    "react-native-gesture-handler": "~1.10.2",
+    "react-native-reanimated": "~2.1.0",
+    "react-native-safe-area-context": "3.2.0",
+    "react-native-screens": "~3.0.0",
+    "react-native-web": "~0.15.0",
+    "react-navigation": "^4.4.4",
+    "react-navigation-stack": "^2.10.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.10"
+  },
+  "author": "",
+  "license": "MIT"
+}

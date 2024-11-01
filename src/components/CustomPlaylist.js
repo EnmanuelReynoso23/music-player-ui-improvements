@@ -20,6 +20,10 @@ const CustomPlaylist = ({ playlist, onAddTrack, onRemoveTrack, onReorderTracks }
     onReorderTracks(data);
   };
 
+  const saveReorderedPlaylist = () => {
+    // Implement save functionality
+  };
+
   const renderItem = ({ item, drag }) => (
     <View style={styles.trackContainer}>
       <Text style={styles.trackTitle}>{item.title}</Text>
@@ -38,6 +42,7 @@ const CustomPlaylist = ({ playlist, onAddTrack, onRemoveTrack, onReorderTracks }
         onDragEnd={reorderTracks}
       />
       <Button title="Add Track" onPress={() => addTrack({ id: 'new', title: 'New Track', artist: 'Unknown' })} />
+      <Button title="Save Playlist" onPress={saveReorderedPlaylist} />
     </View>
   );
 };

@@ -4,24 +4,20 @@ const SPOTIFY_API_BASE_URL = 'https://api.spotify.com/v1';
 
 const SpotifyAPI = {
   getAccessToken: async () => {
-    const clientId = 'your-client-id';
-    const clientSecret = 'your-client-secret';
-    const authOptions = {
-      method: 'POST',
-      url: 'https://accounts.spotify.com/api/token',
+    // Implement authentication to get access token
+  },
+
+  getRecommendations: async (seedTracks) => {
+    const accessToken = await SpotifyAPI.getAccessToken();
+    const response = await axios.get(`${SPOTIFY_API_BASE_URL}/recommendations`, {
       headers: {
-        'Authorization': 'Basic ' + Buffer.from(clientId + ':' + clientSecret).toString('base64'),
-        'Content-Type': 'application/x-www-form-urlencoded'
+        Authorization: `Bearer ${accessToken}`,
       },
-      data: 'grant_type=client_credentials'
-    };
-    try {
-      const response = await axios(authOptions);
-      return response.data.access_token;
-    } catch (error) {
-      console.error('Error fetching access token:', error);
-      throw error;
-    }
+      params: {
+        seed_tracks: seedTracks.join(','),
+      },
+    });
+    return response.data.tracks;
   },
 
   searchTracks: async (query) => {

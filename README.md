@@ -1,4 +1,4 @@
-# Music Player Application
+# Music Player UI Improvements
 
 This project is a music player application built using React Native and Expo Go. It includes features like play, pause, skip, and shuffle, and supports playlists and album art. The app integrates with the Spotify API to provide a seamless music streaming experience.
 
@@ -26,21 +26,23 @@ Follow these instructions to get a copy of the project up and running on your lo
 ### Installation
 
 1. Clone the repository:
+
    ```sh
-   git clone https://github.com/githubnext/workspace-blank.git
+   git clone https://github.com/githubnext/music-player-ui-improvements.git
    ```
+
 2. Navigate to the project directory:
-   ```sh
-   cd workspace-blank
-   ```
+
+   cd music-player-ui-improvements
+
 3. Install the dependencies:
-   ```sh
+
    npm install
-   ```
+
 4. Start the Expo development server:
-   ```sh
-   expo start
-   ```
+
+  npx expo start
+
 
 ### Running the App
 
