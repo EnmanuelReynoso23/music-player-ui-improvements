@@ -3,17 +3,26 @@ import { View, Text, FlatList, Button, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SpotifyAPI from '../api/SpotifyAPI';
 import YouTubeMusicAPI from '../api/youtubeMusicApi';
+import AppleMusicAPI from '../api/AppleMusicAPI';
+import DeezerAPI from '../api/DeezerAPI';
+import SoundCloudAPI from '../api/SoundCloudAPI';
 
 const Home = () => {
   const navigation = useNavigation();
   const [playlists, setPlaylists] = useState([]);
   const [recentlyPlayed, setRecentlyPlayed] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
+  const [appleMusicPlaylists, setAppleMusicPlaylists] = useState([]);
+  const [deezerPlaylists, setDeezerPlaylists] = useState([]);
+  const [soundCloudPlaylists, setSoundCloudPlaylists] = useState([]);
 
   useEffect(() => {
     fetchPlaylists();
     fetchRecentlyPlayed();
     fetchRecommendations();
+    fetchAppleMusicPlaylists();
+    fetchDeezerPlaylists();
+    fetchSoundCloudPlaylists();
   }, []);
 
   const fetchPlaylists = async () => {
@@ -40,6 +49,33 @@ const Home = () => {
       setRecommendations(recommendations);
     } catch (error) {
       console.error('Error fetching recommendations:', error);
+    }
+  };
+
+  const fetchAppleMusicPlaylists = async () => {
+    try {
+      const playlists = await AppleMusicAPI.searchPlaylists('popular');
+      setAppleMusicPlaylists(playlists);
+    } catch (error) {
+      console.error('Error fetching Apple Music playlists:', error);
+    }
+  };
+
+  const fetchDeezerPlaylists = async () => {
+    try {
+      const playlists = await DeezerAPI.searchPlaylists('popular');
+      setDeezerPlaylists(playlists);
+    } catch (error) {
+      console.error('Error fetching Deezer playlists:', error);
+    }
+  };
+
+  const fetchSoundCloudPlaylists = async () => {
+    try {
+      const playlists = await SoundCloudAPI.searchPlaylists('popular');
+      setSoundCloudPlaylists(playlists);
+    } catch (error) {
+      console.error('Error fetching SoundCloud playlists:', error);
     }
   };
 
@@ -82,6 +118,24 @@ const Home = () => {
       <FlatList
         data={recommendations}
         renderItem={renderRecommendationItem}
+        keyExtractor={item => item.id}
+      />
+      <Text style={styles.sectionTitle}>Apple Music Playlists</Text>
+      <FlatList
+        data={appleMusicPlaylists}
+        renderItem={renderPlaylistItem}
+        keyExtractor={item => item.id}
+      />
+      <Text style={styles.sectionTitle}>Deezer Playlists</Text>
+      <FlatList
+        data={deezerPlaylists}
+        renderItem={renderPlaylistItem}
+        keyExtractor={item => item.id}
+      />
+      <Text style={styles.sectionTitle}>SoundCloud Playlists</Text>
+      <FlatList
+        data={soundCloudPlaylists}
+        renderItem={renderPlaylistItem}
         keyExtractor={item => item.id}
       />
     </View>
